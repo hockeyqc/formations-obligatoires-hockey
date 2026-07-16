@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Formulaire des formations obligatoires de Hockey Québec"
+    />
+    <title>Formations obligatoires — Hockey Québec</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="form-panel" aria-labelledby="form-title">
+        <header class="form-header">
+          <p class="eyebrow">Hockey Québec</p>
+          <h1 id="form-title">Formations obligatoires</h1>
+          <p class="intro">
+            Compléter le tableau ci-dessous pour connaître les formations
+            obligatoires qui s'appliquent à votre division et classe
+          </p>
+        </header>
+
+        <form class="selection-form" id="selection-form">
+          <div class="field">
+            <label for="region">Région</label>
+            <div class="select-wrap">
+              <select id="region">
+                <option value="">Sélectionnez votre région</option>
+              </select>
+              <span class="select-arrow" aria-hidden="true"></span>
+            </div>
+          </div>
+
+          <div class="field-grid">
+            <div class="field">
+              <label for="hockey">Hockey</label>
+              <div class="select-wrap">
+                <select id="hockey">
+                  <option value="">Sélectionnez</option>
+                  <option value="Masculin">Masculin</option>
+                  <option value="Féminin">Féminin</option>
+                </select>
+                <span class="select-arrow" aria-hidden="true"></span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="division">Division</label>
+              <div class="select-wrap">
+                <select id="division" disabled>
+                  <option value="">Sélectionnez une division</option>
+                </select>
+                <span class="select-arrow" aria-hidden="true"></span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="classe">Classe</label>
+              <div class="select-wrap">
+                <select id="classe" disabled>
+                  <option value="">Sélectionnez une classe</option>
+                </select>
+                <span class="select-arrow" aria-hidden="true"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="role">Rôle</label>
+            <div class="select-wrap">
+              <select id="role" disabled>
+                <option value="">Sélectionnez un rôle</option>
+              </select>
+              <span class="select-arrow" aria-hidden="true"></span>
+            </div>
+          </div>
+        </form>
+
+        <section class="results-region" aria-live="polite" aria-atomic="true">
+          <div class="empty-state" id="empty-state">
+            <span class="empty-icon" aria-hidden="true">✓</span>
+            <p>Vos formations apparaîtront ici une fois les cinq champs complétés.</p>
+          </div>
+
+          <div class="results-card" id="results-card" hidden>
+            <div class="results-heading-row">
+              <div>
+                <p class="results-kicker">Formations à suivre</p>
+                <h2 id="results-title"></h2>
+                <p class="role-summary" id="role-summary"></p>
+              </div>
+            </div>
+
+            <ol class="training-grid" id="training-grid"></ol>
+
+            <div class="regional-contact">
+              <span class="contact-icon" aria-hidden="true">@</span>
+              <p>
+                Vous avez des questions sur les formations? Communiquez avec
+                <a id="contact-link" href="#"></a>, la personne responsable des
+                formations pour la région <span id="contact-region"></span>.
+              </p>
+            </div>
+
+            <div class="results-actions">
+              <button class="reset-button" id="reset-button" type="button">
+                Recommencer
+              </button>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
