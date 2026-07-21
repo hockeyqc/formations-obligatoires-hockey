@@ -1,6 +1,6 @@
 const FORMATIONS = {
   RES: "La Relance - Hockey Canada",
-  HUSS: "HU \u2013 Sant\xE9 et s\xE9curit\xE9",
+  HUSS: "Soigneur / PSSH - Programme de sécurité de Hockey Canada niveau 1",
   SS: "Sant\xE9 et s\xE9curit\xE9",
   E1: "Formation Entra\xEEneur 1",
   E2: "Formation Entra\xEEneur 2",
@@ -8,8 +8,8 @@ const FORMATIONS = {
   DEVC: "Certification D\xE9veloppement 1",
   HPF: "Formation HP 1",
   HPC: "Certification HP 1",
-  MEC1: "Mise en \xE9chec 1",
-  MEC2: "Mise en \xE9chec 2"
+  MEC1: "Entraîneur - Compétences de Hockey Canada Mise en échec - FRANÇAIS",
+  MEC2: "Entraîneur - Compétences de Hockey Canada Mise en échec - FRANÇAIS"
 };
 const ROLES = {
   HC: "Entra\xEEneur-chef",
