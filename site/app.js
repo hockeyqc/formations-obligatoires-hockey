@@ -104,11 +104,15 @@ function renderResults() {
     (key) => !adminRequirementKeys.has(key),
   );
   const sectorLabel = elements.hockey.selectedOptions[0]?.textContent ?? "";
-  const classSuffix =
-    elements.classe.value === "Sans objet" ? "" : ` · ${elements.classe.value}`;
+  const titleSegments = [sectorLabel];
+  if (elements.division.value !== sectorLabel) {
+    titleSegments.push(elements.division.value);
+  }
+  if (elements.classe.value !== "Sans objet") {
+    titleSegments.push(elements.classe.value);
+  }
 
-  elements.resultsTitle.textContent =
-    `${sectorLabel} · ${elements.division.value}${classSuffix}`;
+  elements.resultsTitle.textContent = titleSegments.join(" · ");
   elements.roleSummary.textContent = ROLES[elements.role.value];
 
   elements.requirementsSection.hidden = requirementKeys.length === 0;
