@@ -4,7 +4,7 @@ import {
   FORMATIONS,
   ROLE_ORDER,
   ROLES,
-} from "./formations-data.js?v=20260819-5";
+} from "./formations-data.js?v=20260819-6";
 import { REGIONAL_CONTACTS } from "./regions-data.js?v=20260819-2";
 
 const unique = (values) => [...new Set(values)];
@@ -60,7 +60,7 @@ function clearResults() {
   elements.emptyState.hidden = false;
 }
 
-function renderList(container, keys) {
+function renderList(container, keys, notes = {}) {
   container.replaceChildren();
 
   keys.forEach((key, index) => {
@@ -72,10 +72,21 @@ function renderList(container, keys) {
     number.setAttribute("aria-hidden", "true");
     number.textContent = String(index + 1);
 
-    const label = document.createElement("span");
-    label.textContent = FORMATIONS[key];
+    const copy = document.createElement("span");
+    copy.className = "training-copy";
 
-    item.append(number, label);
+    const label = document.createElement("span");
+    label.textContent = notes[key] ? `${FORMATIONS[key]} *` : FORMATIONS[key];
+    copy.append(label);
+
+    if (notes[key]) {
+      const note = document.createElement("small");
+      note.className = "training-note";
+      note.textContent = `* ${notes[key]}`;
+      copy.append(note);
+    }
+
+    item.append(number, copy);
     container.append(item);
   });
 }
@@ -118,7 +129,11 @@ function renderResults() {
   elements.requirementsSection.hidden = requirementKeys.length === 0;
   elements.trainingSection.hidden = formationKeys.length === 0;
   renderList(elements.requirementsGrid, requirementKeys);
-  renderList(elements.trainingGrid, formationKeys);
+  renderList(
+    elements.trainingGrid,
+    formationKeys,
+    group.formationNotes?.[elements.role.value],
+  );
 
   elements.contactLink.textContent = contact.name;
   elements.contactLink.href = `mailto:${contact.email}`;
