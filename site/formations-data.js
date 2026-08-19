@@ -8,7 +8,6 @@ const FORMATIONS = {
   HPF: "Formation HP 1",
   HPC: "Certification HP 1",
   MEC: "Entraîneur - Compétences de Hockey Canada Mise en échec",
-  BASE: "Toute formation de base de Hockey Canada est acceptée (E1 ou D1)",
   VCJ: "Vérification d’antécédents judiciaires (VCJ)",
 };
 
@@ -286,8 +285,16 @@ const FORMATION_GROUPS = [
     entries: [entry("D4", ["Personne responsable (animateur de groupe)"])],
     roles: {
       TEACHER: ["VCJ", "RES", "PSSH"],
-      SCHOOL_STAFF: ["VCJ", "RES", "PSSH", "BASE"],
-      MANDATEE: ["VCJ", "RES", "PSSH", "BASE"],
+      SCHOOL_STAFF: ["VCJ", "RES", "PSSH", "E2"],
+      MANDATEE: ["VCJ", "RES", "PSSH", "E2"],
+    },
+    formationNotes: {
+      SCHOOL_STAFF: {
+        E2: "Toute formation de base de Hockey Canada est acceptée (E1 ou D1).",
+      },
+      MANDATEE: {
+        E2: "Toute formation de base de Hockey Canada est acceptée (E1 ou D1).",
+      },
     },
   },
   {
