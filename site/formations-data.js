@@ -23,9 +23,6 @@ const ROLES = {
   EQUIP: "Préposé à l’équipement",
   PSS: "Préposé à la santé et à la sécurité",
   MGR: "Gérant",
-  ADAPT_OTHER: "Autres intervenants",
-  PLAYER_COMPANION: "Accompagnateur de joueur",
-  MGR_RESP: "Gérant - Responsable",
   TEACHER: "Personnel enseignant",
   SCHOOL_STAFF: "Autre personnel de l’école",
   MANDATEE: "Mandataire",
@@ -40,9 +37,6 @@ const ROLE_ORDER = [
   "EQUIP",
   "PSS",
   "MGR",
-  "ADAPT_OTHER",
-  "PLAYER_COMPANION",
-  "MGR_RESP",
   "TEACHER",
   "SCHOOL_STAFF",
   "MANDATEE",
@@ -287,6 +281,24 @@ const FORMATION_GROUPS = [
       MGR: ["RES"],
     },
   },
+  {
+    hockey: "Mixte",
+    entries: [entry("D4", ["Personne responsable (animateur de groupe)"])],
+    roles: {
+      TEACHER: ["VCJ", "RES", "PSSH"],
+      SCHOOL_STAFF: ["VCJ", "RES", "PSSH", "BASE"],
+      MANDATEE: ["VCJ", "RES", "PSSH", "BASE"],
+    },
+  },
+  {
+    hockey: "Mixte",
+    entries: [entry("D4", ["Autres accompagnateurs/animateurs"])],
+    roles: {
+      TEACHER: ["VCJ", "RES"],
+      SCHOOL_STAFF: ["VCJ", "RES"],
+      MANDATEE: ["VCJ", "RES"],
+    },
+  },
 
   // Hockey féminin
   {
@@ -437,89 +449,6 @@ const FORMATION_GROUPS = [
     },
   },
 
-  // Hockey adapté
-  {
-    hockey: "Hockey adapté",
-    entries: [entry("Hockey local - Hockey adapté", ["Groupe 1"])],
-    roles: {
-      HC: ["VCJ", "RES", "PSSH", "E1"],
-    },
-  },
-  {
-    hockey: "Hockey adapté",
-    entries: [
-      entry("Hockey local - Hockey adapté", ["Groupe 2", "Groupe 3"]),
-    ],
-    roles: {
-      HC: ["VCJ", "RES", "PSSH", "E2"],
-    },
-  },
-  {
-    hockey: "Hockey adapté",
-    entries: [entry("Hockey local - Hockey adapté", ["Tous"])],
-    roles: {
-      ADAPT_OTHER: ["VCJ", "RES"],
-      PSS: ["VCJ", "RES", "PSSH"],
-      PLAYER_COMPANION: ["VCJ"],
-      MGR_RESP: ["VCJ", "RES"],
-    },
-  },
-  {
-    hockey: "Hockey adapté",
-    entries: [entry("D4", ["Personne responsable (animateur de groupe)"])],
-    roles: {
-      TEACHER: ["VCJ", "RES", "PSSH"],
-      SCHOOL_STAFF: ["VCJ", "RES", "PSSH", "BASE"],
-      MANDATEE: ["VCJ", "RES", "PSSH", "BASE"],
-    },
-  },
-  {
-    hockey: "Hockey adapté",
-    entries: [entry("D4", ["Autres accompagnateurs/animateurs"])],
-    roles: {
-      TEACHER: ["VCJ", "RES"],
-      SCHOOL_STAFF: ["VCJ", "RES"],
-      MANDATEE: ["VCJ", "RES"],
-    },
-  },
-
-  // Parahockey
-  {
-    hockey: "Parahockey",
-    entries: [entry("Parahockey", ["Élite"])],
-    roles: {
-      HC: ["RES", "PSSH", "HPF", "HPC", "MEC"],
-      FIRST: ["RES", "DEVF", "DEVC"],
-      OTHER: ["RES"],
-      THER: ["RES"],
-      EQUIP: ["RES", "PSSH"],
-      PSS: ["RES"],
-      MGR: ["RES"],
-    },
-  },
-  {
-    hockey: "Parahockey",
-    entries: [entry("Parahockey", ["Développement - SLAM"])],
-    roles: {
-      HC: ["RES", "PSSH", "DEVF", "MEC"],
-      AS: ["RES", "E2"],
-      THER: ["RES"],
-      EQUIP: ["RES", "PSSH"],
-      PSS: ["RES"],
-      MGR: ["RES"],
-    },
-  },
-  {
-    hockey: "Parahockey",
-    entries: [entry("Parahockey", ["Junior"])],
-    roles: {
-      HC: ["RES", "PSSH", "E2"],
-      AS: ["RES", "E2"],
-      THER: ["RES"],
-      PSS: ["RES", "PSSH"],
-      MGR: ["RES"],
-    },
-  },
 ];
 
 export {
