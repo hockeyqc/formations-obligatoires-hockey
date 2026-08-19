@@ -35,19 +35,21 @@
 
           <div class="field-grid">
             <div class="field">
-              <label for="hockey">Hockey</label>
+              <label for="hockey">Secteur de hockey</label>
               <div class="select-wrap">
                 <select id="hockey">
                   <option value="">Sélectionnez</option>
-                  <option value="Masculin">Masculin</option>
-                  <option value="Féminin">Féminin</option>
+                  <option value="Mixte">Hockey mixte</option>
+                  <option value="Féminin">Hockey féminin</option>
+                  <option value="Hockey adapté">Hockey adapté</option>
+                  <option value="Parahockey">Parahockey</option>
                 </select>
                 <span class="select-arrow" aria-hidden="true"></span>
               </div>
             </div>
 
             <div class="field">
-              <label for="division">Division</label>
+              <label for="division" id="division-label">Division</label>
               <div class="select-wrap">
                 <select id="division" disabled>
                   <option value="">Sélectionnez une division</option>
@@ -57,7 +59,7 @@
             </div>
 
             <div class="field">
-              <label for="classe">Classe</label>
+              <label for="classe" id="class-label">Classe</label>
               <div class="select-wrap">
                 <select id="classe" disabled>
                   <option value="">Sélectionnez une classe</option>
@@ -81,19 +83,34 @@
         <section class="results-region" aria-live="polite" aria-atomic="true">
           <div class="empty-state" id="empty-state">
             <span class="empty-icon" aria-hidden="true">✓</span>
-            <p>Vos formations apparaîtront ici une fois les cinq champs complétés.</p>
+            <p>
+              Vos exigences et formations apparaîtront ici une fois les cinq
+              champs complétés.
+            </p>
           </div>
 
           <div class="results-card" id="results-card" hidden>
             <div class="results-heading-row">
               <div>
-                <p class="results-kicker">Formations à suivre</p>
+                <p class="results-kicker">Qualifications obligatoires</p>
                 <h2 id="results-title"></h2>
                 <p class="role-summary" id="role-summary"></p>
               </div>
             </div>
 
-            <ol class="training-grid" id="training-grid"></ol>
+            <section
+              class="qualification-section requirements-section"
+              id="requirements-section"
+              hidden
+            >
+              <h3>Exigences administratives</h3>
+              <ol class="training-grid" id="requirements-grid"></ol>
+            </section>
+
+            <section class="qualification-section" id="training-section">
+              <h3>Formations à suivre</h3>
+              <ol class="training-grid" id="training-grid"></ol>
+            </section>
 
             <div class="regional-contact">
               <span class="contact-icon" aria-hidden="true">@</span>
