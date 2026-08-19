@@ -4,7 +4,7 @@ import {
   FORMATIONS,
   ROLE_ORDER,
   ROLES,
-} from "./formations-data.js?v=20260819-4";
+} from "./formations-data.js?v=20260819-5";
 import { REGIONAL_CONTACTS } from "./regions-data.js?v=20260819-2";
 
 const unique = (values) => [...new Set(values)];
@@ -134,9 +134,8 @@ function renderResults() {
 }
 
 function updateFieldLabels() {
-  const isAdapted = elements.hockey.value === "Hockey adapté";
-  elements.divisionLabel.textContent = isAdapted ? "Division ou programme" : "Division";
-  elements.classLabel.textContent = isAdapted ? "Groupe ou catégorie" : "Classe";
+  elements.divisionLabel.textContent = "Division";
+  elements.classLabel.textContent = "Classe";
 }
 
 setOptions(
@@ -184,9 +183,7 @@ elements.division.addEventListener("change", () => {
 
   setOptions(
     elements.classe,
-    elements.hockey.value === "Hockey adapté"
-      ? "Sélectionnez un groupe ou une catégorie"
-      : "Sélectionnez une classe",
+    "Sélectionnez une classe",
     classes.map((value) => ({ value })),
   );
   elements.classe.disabled = !elements.division.value;
