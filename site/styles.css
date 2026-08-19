@@ -274,6 +274,19 @@ h1 {
   font-weight: 780;
 }
 
+.training-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.training-note {
+  color: #526775;
+  font-size: 0.84rem;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
 .regional-contact {
   display: flex;
   align-items: center;
