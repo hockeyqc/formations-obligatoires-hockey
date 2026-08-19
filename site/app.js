@@ -1,4 +1,5 @@
 import {
+  ADMIN_REQUIREMENT_KEYS,
   FORMATION_GROUPS,
   FORMATIONS,
   ROLE_ORDER,
@@ -7,18 +8,24 @@ import {
 import { REGIONAL_CONTACTS } from "./regions-data.js";
 
 const unique = (values) => [...new Set(values)];
+const adminRequirementKeys = new Set(ADMIN_REQUIREMENT_KEYS);
 
 const elements = {
   form: document.querySelector("#selection-form"),
   region: document.querySelector("#region"),
   hockey: document.querySelector("#hockey"),
   division: document.querySelector("#division"),
+  divisionLabel: document.querySelector("#division-label"),
   classe: document.querySelector("#classe"),
+  classLabel: document.querySelector("#class-label"),
   role: document.querySelector("#role"),
   emptyState: document.querySelector("#empty-state"),
   resultsCard: document.querySelector("#results-card"),
   resultsTitle: document.querySelector("#results-title"),
   roleSummary: document.querySelector("#role-summary"),
+  requirementsSection: document.querySelector("#requirements-section"),
+  requirementsGrid: document.querySelector("#requirements-grid"),
+  trainingSection: document.querySelector("#training-section"),
   trainingGrid: document.querySelector("#training-grid"),
   contactLink: document.querySelector("#contact-link"),
   contactRegion: document.querySelector("#contact-region"),
@@ -28,7 +35,9 @@ const elements = {
 function setOptions(select, placeholder, options) {
   select.replaceChildren();
   select.add(new Option(placeholder, ""));
-  options.forEach(({ value, label = value }) => select.add(new Option(label, value)));
+  options.forEach(({ value, label = value }) => {
+    select.add(new Option(label, value));
+  });
 }
 
 function selectedGroup() {
@@ -40,7 +49,8 @@ function selectedGroup() {
       group.hockey === hockey.value &&
       group.entries.some(
         (entry) =>
-          entry.division === division.value && entry.classes.includes(classe.value),
+          entry.division === division.value &&
+          entry.classes.includes(classe.value),
       ),
   );
 }
@@ -50,23 +60,10 @@ function clearResults() {
   elements.emptyState.hidden = false;
 }
 
-function renderResults() {
-  const group = selectedGroup();
-  const contact = REGIONAL_CONTACTS.find(
-    (item) => item.region === elements.region.value,
-  );
-  const formationKeys = group?.roles[elements.role.value] ?? [];
+function renderList(container, keys) {
+  container.replaceChildren();
 
-  if (!contact || !group || !elements.role.value || formationKeys.length === 0) {
-    clearResults();
-    return;
-  }
-
-  elements.resultsTitle.textContent = `Hockey ${elements.hockey.value} · ${elements.division.value} ${elements.classe.value}`;
-  elements.roleSummary.textContent = ROLES[elements.role.value];
-  elements.trainingGrid.replaceChildren();
-
-  formationKeys.forEach((key, index) => {
+  keys.forEach((key, index) => {
     const item = document.createElement("li");
     item.className = "training-item";
 
@@ -79,8 +76,45 @@ function renderResults() {
     label.textContent = FORMATIONS[key];
 
     item.append(number, label);
-    elements.trainingGrid.append(item);
+    container.append(item);
   });
+}
+
+function renderResults() {
+  const group = selectedGroup();
+  const contact = REGIONAL_CONTACTS.find(
+    (item) => item.region === elements.region.value,
+  );
+  const qualificationKeys = group?.roles[elements.role.value] ?? [];
+
+  if (
+    !contact ||
+    !group ||
+    !elements.role.value ||
+    qualificationKeys.length === 0
+  ) {
+    clearResults();
+    return;
+  }
+
+  const requirementKeys = qualificationKeys.filter((key) =>
+    adminRequirementKeys.has(key),
+  );
+  const formationKeys = qualificationKeys.filter(
+    (key) => !adminRequirementKeys.has(key),
+  );
+  const sectorLabel = elements.hockey.selectedOptions[0]?.textContent ?? "";
+  const classSuffix =
+    elements.classe.value === "Sans objet" ? "" : ` · ${elements.classe.value}`;
+
+  elements.resultsTitle.textContent =
+    `${sectorLabel} · ${elements.division.value}${classSuffix}`;
+  elements.roleSummary.textContent = ROLES[elements.role.value];
+
+  elements.requirementsSection.hidden = requirementKeys.length === 0;
+  elements.trainingSection.hidden = formationKeys.length === 0;
+  renderList(elements.requirementsGrid, requirementKeys);
+  renderList(elements.trainingGrid, formationKeys);
 
   elements.contactLink.textContent = contact.name;
   elements.contactLink.href = `mailto:${contact.email}`;
@@ -95,6 +129,12 @@ function renderResults() {
   elements.resultsCard.hidden = false;
 }
 
+function updateFieldLabels() {
+  const isAdapted = elements.hockey.value === "Hockey adapté";
+  elements.divisionLabel.textContent = isAdapted ? "Division ou programme" : "Division";
+  elements.classLabel.textContent = isAdapted ? "Groupe ou catégorie" : "Classe";
+}
+
 setOptions(
   elements.region,
   "Sélectionnez votre région",
@@ -102,6 +142,8 @@ setOptions(
 );
 
 elements.hockey.addEventListener("change", () => {
+  updateFieldLabels();
+
   const divisions = elements.hockey.value
     ? unique(
         FORMATION_GROUPS.filter(
@@ -138,7 +180,9 @@ elements.division.addEventListener("change", () => {
 
   setOptions(
     elements.classe,
-    "Sélectionnez une classe",
+    elements.hockey.value === "Hockey adapté"
+      ? "Sélectionnez un groupe ou une catégorie"
+      : "Sélectionnez une classe",
     classes.map((value) => ({ value })),
   );
   elements.classe.disabled = !elements.division.value;
@@ -172,6 +216,7 @@ elements.resetButton.addEventListener("click", () => {
   elements.division.disabled = true;
   elements.classe.disabled = true;
   elements.role.disabled = true;
+  updateFieldLabels();
   clearResults();
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
