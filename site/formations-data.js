@@ -8,7 +8,7 @@ const FORMATIONS = {
   DEVC: "Certification Développement 1",
   HPF: "Formation HP 1",
   HPC: "Certification HP 1",
-  MEC: "Entraîneur - Compétences de Hockey Canada Mise en échec - FRANÇAIS",
+  MEC: "Entraîneur - Compétences de Hockey Canada Mise en échec",
   BASE: "Toute formation de base de Hockey Canada est acceptée (E1 ou D1)",
   VCJ: "Vérification d’antécédents judiciaires (VCJ)",
 };
