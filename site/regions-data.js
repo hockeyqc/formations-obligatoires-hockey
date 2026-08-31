@@ -2,8 +2,8 @@ const REGIONAL_CONTACTS = [
   { region: "RSEQ", name: "Steve Gosselin", email: "sgosselin@rseq.ca" },
   {
     region: "Hockey Abitibi-T\xE9miscamingue",
-    name: "Marc D\xE9silets",
-    email: "marc.desilets@hockeyat.ca"
+    name: "Isabelle Godbout",
+    email: "info@hockeyat.ca"
   },
   {
     region: "Hockey Bas St-Laurent",
