@@ -63,7 +63,7 @@ const REGIONAL_CONTACTS = [
   {
     region: "Hockey Richelieu",
     name: "Virginie Sauv\xE9",
-    email: "virg.sauve@gmail.com"
+    email: "comptabilite@hockey-richelieu.qc.ca"
   },
   {
     region: "Hockey Saguenay Lac St-Jean",
