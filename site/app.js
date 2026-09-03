@@ -4,7 +4,7 @@ import {
   FORMATIONS,
   ROLE_ORDER,
   ROLES,
-} from "./formations-data.js?v=20260819-6";
+} from "./formations-data.js?v=20260903-1";
 import { REGIONAL_CONTACTS } from "./regions-data.js?v=20260819-2";
 
 const unique = (values) => [...new Set(values)];
@@ -93,12 +93,14 @@ function renderList(container, keys, notes = {}) {
 
 function renderResults() {
   const group = selectedGroup();
-  const contact = REGIONAL_CONTACTS.find(
+  const regionalContact = REGIONAL_CONTACTS.find(
     (item) => item.region === elements.region.value,
   );
+  const contact = group?.contact ?? regionalContact;
   const qualificationKeys = group?.roles[elements.role.value] ?? [];
 
   if (
+    !elements.region.value ||
     !contact ||
     !group ||
     !elements.role.value ||
@@ -142,7 +144,8 @@ function renderResults() {
     "aria-label",
     `Écrire à ${contact.name} à l'adresse ${contact.email}`,
   );
-  elements.contactRegion.textContent = contact.region;
+  elements.contactRegion.textContent =
+    group.contact?.organization ?? contact.region;
 
   elements.emptyState.hidden = true;
   elements.resultsCard.hidden = false;
