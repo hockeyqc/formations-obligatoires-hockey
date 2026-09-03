@@ -267,17 +267,36 @@ const FORMATION_GROUPS = [
   },
   {
     hockey: "Mixte",
-    entries: [
-      entry("LHJMQ - LHJAAAQ - M18 AAA", ["Sans objet"]),
-    ],
+    entries: [entry("M18 AAA", ["Sans objet"])],
     roles: {
       HC: ["RES", "PSSH", "HPF", "HPC", "MEC"],
-      FIRST: ["RES", "PSSH", "HPF", "HPC"],
-      OTHER: ["RES"],
+      AS: ["RES", "PSSH", "HPF", "HPC"],
       THER: ["RES"],
       EQUIP: ["RES"],
       PSS: ["RES", "PSSH"],
       MGR: ["RES"],
+    },
+    contact: {
+      name: "France Boivin",
+      email: "registraire@m18aaa.com",
+      organization: "M18 AAA",
+    },
+  },
+  {
+    hockey: "Mixte",
+    entries: [entry("LHJAAAQ", ["Sans objet"])],
+    roles: {
+      HC: ["RES", "PSSH", "HPF", "HPC", "MEC"],
+      AS: ["RES", "PSSH", "HPF", "HPC"],
+      THER: ["RES"],
+      EQUIP: ["RES"],
+      PSS: ["RES", "PSSH"],
+      MGR: ["RES"],
+    },
+    contact: {
+      name: "Alain Lessard",
+      email: "registraire@lhjaaaq.com",
+      organization: "LHJAAAQ",
     },
   },
   {
