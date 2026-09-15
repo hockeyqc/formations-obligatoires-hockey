@@ -32,8 +32,8 @@ const REGIONAL_CONTACTS = [
   },
   {
     region: "Hockey Laurentides-Lanaudi\xE8re",
-    name: "St\xE9phane Leblanc",
-    email: "stephane.leblanc@hockeyll.ca"
+    name: "France Tardif",
+    email: "registrariat@hockeyll.ca"
   },
   {
     region: "Hockey Laval",
