@@ -4,7 +4,7 @@ import {
   FORMATIONS,
   ROLE_ORDER,
   ROLES,
-} from "./formations-data.js?v=20260903-1";
+} from "./formations-data.js?v=20260921-1";
 import { REGIONAL_CONTACTS } from "./regions-data.js?v=20260915-1";
 
 const unique = (values) => [...new Set(values)];
