@@ -299,32 +299,6 @@ const FORMATION_GROUPS = [
       organization: "LHJAAAQ",
     },
   },
-  {
-    hockey: "Mixte",
-    entries: [entry("D4", ["Personne responsable (animateur de groupe)"])],
-    roles: {
-      TEACHER: ["VCJ", "RES", "PSSH"],
-      SCHOOL_STAFF: ["VCJ", "RES", "PSSH", "E2"],
-      MANDATEE: ["VCJ", "RES", "PSSH", "E2"],
-    },
-    formationNotes: {
-      SCHOOL_STAFF: {
-        E2: "Toute formation de base de Hockey Canada est acceptée (E1 ou D1).",
-      },
-      MANDATEE: {
-        E2: "Toute formation de base de Hockey Canada est acceptée (E1 ou D1).",
-      },
-    },
-  },
-  {
-    hockey: "Mixte",
-    entries: [entry("D4", ["Autres accompagnateurs/animateurs"])],
-    roles: {
-      TEACHER: ["VCJ", "RES"],
-      SCHOOL_STAFF: ["VCJ", "RES"],
-      MANDATEE: ["VCJ", "RES"],
-    },
-  },
 
   // Hockey féminin
   {
