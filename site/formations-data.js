@@ -417,10 +417,19 @@ const FORMATION_GROUPS = [
   },
   {
     hockey: "Féminin",
-    entries: [entry("Junior", ["A", "B"])],
+    entries: [entry("Junior", ["A"])],
     roles: standard(
       "PSSH",
       ["RES", "PSSH", "DEVF"],
+      ["RES", "E2"],
+    ),
+  },
+  {
+    hockey: "Féminin",
+    entries: [entry("Junior", ["B"])],
+    roles: standard(
+      "PSSH",
+      ["RES", "PSSH", "E2"],
       ["RES", "E2"],
     ),
   },
