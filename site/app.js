@@ -4,8 +4,8 @@ import {
   FORMATIONS,
   ROLE_ORDER,
   ROLES,
-} from "./formations-data.js?v=20260929-1";
-import { REGIONAL_CONTACTS } from "./regions-data.js?v=20260915-1";
+} from "./formations-data.js?v=20261009-1";
+import { REGIONAL_CONTACTS } from "./regions-data.js?v=20261009-1";
 
 const unique = (values) => [...new Set(values)];
 const adminRequirementKeys = new Set(ADMIN_REQUIREMENT_KEYS);
@@ -14,8 +14,10 @@ const elements = {
   form: document.querySelector("#selection-form"),
   region: document.querySelector("#region"),
   hockey: document.querySelector("#hockey"),
+  divisionField: document.querySelector("#division-field"),
   division: document.querySelector("#division"),
   divisionLabel: document.querySelector("#division-label"),
+  classField: document.querySelector("#class-field"),
   classe: document.querySelector("#classe"),
   classLabel: document.querySelector("#class-label"),
   role: document.querySelector("#role"),
@@ -28,7 +30,7 @@ const elements = {
   trainingSection: document.querySelector("#training-section"),
   trainingGrid: document.querySelector("#training-grid"),
   contactLink: document.querySelector("#contact-link"),
-  contactRegion: document.querySelector("#contact-region"),
+  contactDescription: document.querySelector("#contact-description"),
   resetButton: document.querySelector("#reset-button"),
 };
 
@@ -53,6 +55,45 @@ function selectedGroup() {
           entry.classes.includes(classe.value),
       ),
   );
+}
+
+function groupsForSelectedSector() {
+  return FORMATION_GROUPS.filter(
+    (group) => group.hockey === elements.hockey.value,
+  );
+}
+
+function divisionsForSelectedSector() {
+  return unique(
+    groupsForSelectedSector().flatMap((group) =>
+      group.entries.map((entry) => entry.division),
+    ),
+  );
+}
+
+function classesForSelectedDivision() {
+  return unique(
+    groupsForSelectedSector().flatMap((group) =>
+      group.entries
+        .filter((entry) => entry.division === elements.division.value)
+        .flatMap((entry) => entry.classes),
+    ),
+  );
+}
+
+function updateRoles() {
+  const group = selectedGroup();
+  const roleOrder = group?.roleOrder ?? ROLE_ORDER;
+  const roles = group
+    ? roleOrder.filter((key) => group.roles[key]).map((key) => ({
+        value: key,
+        label: ROLES[key],
+      }))
+    : [];
+
+  setOptions(elements.role, "Sélectionnez un rôle", roles);
+  elements.role.disabled = !group;
+  clearResults();
 }
 
 function clearResults() {
@@ -96,7 +137,12 @@ function renderResults() {
   const regionalContact = REGIONAL_CONTACTS.find(
     (item) => item.region === elements.region.value,
   );
-  const contact = group?.contact ?? regionalContact;
+  const useRegionalContact = group?.regionalContactExceptions?.includes(
+    elements.region.value,
+  );
+  const contact = useRegionalContact
+    ? regionalContact
+    : (group?.contact ?? regionalContact);
   const qualificationKeys = group?.roles[elements.role.value] ?? [];
 
   if (
@@ -144,8 +190,9 @@ function renderResults() {
     "aria-label",
     `Écrire à ${contact.name} à l'adresse ${contact.email}`,
   );
-  elements.contactRegion.textContent =
-    group.contact?.organization ?? contact.region;
+  elements.contactDescription.textContent = contact.title
+    ? `, ${contact.title}.`
+    : `, la personne-ressource pour ${contact.region}.`;
 
   elements.emptyState.hidden = true;
   elements.resultsCard.hidden = false;
@@ -156,6 +203,13 @@ function updateFieldLabels() {
   elements.classLabel.textContent = "Classe";
 }
 
+function updateFieldPresentation() {
+  const isAdapted = elements.hockey.value === "Adapté";
+  const isParahockey = elements.hockey.value === "Parahockey";
+  elements.divisionField.hidden = isAdapted;
+  elements.classField.hidden = isParahockey;
+}
+
 setOptions(
   elements.region,
   "Sélectionnez votre région",
@@ -164,14 +218,9 @@ setOptions(
 
 elements.hockey.addEventListener("change", () => {
   updateFieldLabels();
+  updateFieldPresentation();
 
-  const divisions = elements.hockey.value
-    ? unique(
-        FORMATION_GROUPS.filter(
-          (group) => group.hockey === elements.hockey.value,
-        ).flatMap((group) => group.entries.map((entry) => entry.division)),
-      )
-    : [];
+  const divisions = elements.hockey.value ? divisionsForSelectedSector() : [];
 
   setOptions(
     elements.division,
@@ -183,21 +232,22 @@ elements.hockey.addEventListener("change", () => {
   elements.classe.disabled = true;
   setOptions(elements.role, "Sélectionnez un rôle", []);
   elements.role.disabled = true;
+
+  if (elements.hockey.value === "Adapté" && divisions.length === 1) {
+    elements.division.value = divisions[0];
+    const classes = classesForSelectedDivision();
+    setOptions(
+      elements.classe,
+      "Sélectionnez une classe",
+      classes.map((value) => ({ value })),
+    );
+    elements.classe.disabled = false;
+  }
   clearResults();
 });
 
 elements.division.addEventListener("change", () => {
-  const classes = elements.division.value
-    ? unique(
-        FORMATION_GROUPS.filter(
-          (group) => group.hockey === elements.hockey.value,
-        ).flatMap((group) =>
-          group.entries
-            .filter((entry) => entry.division === elements.division.value)
-            .flatMap((entry) => entry.classes),
-        ),
-      )
-    : [];
+  const classes = elements.division.value ? classesForSelectedDivision() : [];
 
   setOptions(
     elements.classe,
@@ -207,22 +257,15 @@ elements.division.addEventListener("change", () => {
   elements.classe.disabled = !elements.division.value;
   setOptions(elements.role, "Sélectionnez un rôle", []);
   elements.role.disabled = true;
+
+  if (elements.hockey.value === "Parahockey" && classes.length === 1) {
+    elements.classe.value = classes[0];
+    updateRoles();
+  }
   clearResults();
 });
 
-elements.classe.addEventListener("change", () => {
-  const group = selectedGroup();
-  const roles = group
-    ? ROLE_ORDER.filter((key) => group.roles[key]).map((key) => ({
-        value: key,
-        label: ROLES[key],
-      }))
-    : [];
-
-  setOptions(elements.role, "Sélectionnez un rôle", roles);
-  elements.role.disabled = !elements.classe.value;
-  clearResults();
-});
+elements.classe.addEventListener("change", updateRoles);
 
 elements.region.addEventListener("change", renderResults);
 elements.role.addEventListener("change", renderResults);
@@ -236,6 +279,7 @@ elements.resetButton.addEventListener("click", () => {
   elements.classe.disabled = true;
   elements.role.disabled = true;
   updateFieldLabels();
+  updateFieldPresentation();
   clearResults();
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
