@@ -17,8 +17,8 @@
           <p class="eyebrow">Hockey Québec</p>
           <h1 id="form-title">Formations obligatoires</h1>
           <p class="intro">
-            Compléter le tableau ci-dessous pour connaître les formations
-            obligatoires qui s'appliquent à votre division et classe
+            Complétez les champs ci-dessous pour connaître les formations
+            obligatoires qui s'appliquent à votre rôle.
           </p>
         </header>
 
@@ -41,12 +41,14 @@
                   <option value="">Sélectionnez</option>
                   <option value="Mixte">Hockey mixte</option>
                   <option value="Féminin">Hockey féminin</option>
+                  <option value="Adapté">Hockey adapté</option>
+                  <option value="Parahockey">Parahockey</option>
                 </select>
                 <span class="select-arrow" aria-hidden="true"></span>
               </div>
             </div>
 
-            <div class="field">
+            <div class="field" id="division-field">
               <label for="division" id="division-label">Division</label>
               <div class="select-wrap">
                 <select id="division" disabled>
@@ -56,7 +58,7 @@
               </div>
             </div>
 
-            <div class="field">
+            <div class="field" id="class-field">
               <label for="classe" id="class-label">Classe</label>
               <div class="select-wrap">
                 <select id="classe" disabled>
@@ -82,8 +84,8 @@
           <div class="empty-state" id="empty-state">
             <span class="empty-icon" aria-hidden="true">✓</span>
             <p>
-              Vos exigences et formations apparaîtront ici une fois les cinq
-              champs complétés.
+              Vos exigences et formations apparaîtront ici une fois tous les
+              champs requis complétés.
             </p>
           </div>
 
@@ -114,8 +116,9 @@
               <span class="contact-icon" aria-hidden="true">@</span>
               <p>
                 Vous avez des questions sur les formations? Communiquez avec
-                <a id="contact-link" href="#"></a>, la personne-ressource pour
-                <span id="contact-region"></span>.
+                <a id="contact-link" href="#"></a><span
+                  id="contact-description"
+                ></span>
               </p>
             </div>
 
@@ -129,6 +132,6 @@
       </section>
     </main>
 
-    <script type="module" src="./app.js?v=20260929-1"></script>
+    <script type="module" src="./app.js?v=20261009-1"></script>
   </body>
 </html>
