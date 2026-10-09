@@ -22,6 +22,10 @@ const ROLES = {
   EQUIP: "Préposé à l’équipement",
   PSS: "Préposé à la santé et à la sécurité",
   MGR: "Gérant",
+  STAFF: "Autres intervenants",
+  PUSHER: "Pousseur",
+  COMPANION: "Accompagnateur de joueur",
+  MGR_RESP: "Gérant - Responsable",
   TEACHER: "Personnel enseignant",
   SCHOOL_STAFF: "Autre personnel de l’école",
   MANDATEE: "Mandataire",
@@ -36,6 +40,10 @@ const ROLE_ORDER = [
   "EQUIP",
   "PSS",
   "MGR",
+  "STAFF",
+  "PUSHER",
+  "COMPANION",
+  "MGR_RESP",
   "TEACHER",
   "SCHOOL_STAFF",
   "MANDATEE",
@@ -57,6 +65,12 @@ const fiveRoles = (headCoach, assistantCoach) => ({
 });
 
 const entry = (division, classes) => ({ division, classes });
+
+const PARAHOCKEY_CONTACT = {
+  name: "Rika Pilon-Robert",
+  email: "rpilonrobert@hockey.qc.ca",
+  title: "coordonnatrice Hockey communautaire et Parahockey",
+};
 
 const FORMATION_GROUPS = [
   // Hockey mixte
@@ -456,6 +470,91 @@ const FORMATION_GROUPS = [
       PSS: ["RES", "PSSH"],
       MGR: ["RES"],
     },
+  },
+
+  // Hockey adapté
+  {
+    hockey: "Adapté",
+    entries: [entry("Hockey adapté", ["Groupe 1"])],
+    roleOrder: ["HC", "STAFF", "PSS", "COMPANION", "MGR_RESP"],
+    roles: {
+      HC: ["VCJ", "RES", "PSSH", "E1"],
+      STAFF: ["VCJ", "RES"],
+      PSS: ["VCJ", "RES", "PSSH"],
+      COMPANION: ["VCJ"],
+      MGR_RESP: ["VCJ", "RES"],
+    },
+  },
+  {
+    hockey: "Adapté",
+    entries: [entry("Hockey adapté", ["Groupe 2"])],
+    roleOrder: ["HC", "STAFF", "PSS", "COMPANION", "MGR_RESP"],
+    roles: {
+      HC: ["VCJ", "RES", "PSSH", "E2"],
+      STAFF: ["VCJ", "RES"],
+      PSS: ["VCJ", "RES", "PSSH"],
+      COMPANION: ["VCJ"],
+      MGR_RESP: ["VCJ", "RES"],
+    },
+  },
+  {
+    hockey: "Adapté",
+    entries: [entry("Hockey adapté", ["Groupe 3"])],
+    roleOrder: ["HC", "STAFF", "PSS", "COMPANION", "MGR_RESP"],
+    roles: {
+      HC: ["VCJ", "RES", "PSSH", "E2"],
+      STAFF: ["VCJ", "RES"],
+      PSS: ["VCJ", "RES", "PSSH"],
+      COMPANION: ["VCJ"],
+      MGR_RESP: ["VCJ", "RES"],
+    },
+  },
+
+  // Parahockey
+  {
+    hockey: "Parahockey",
+    entries: [entry("Junior", ["Sans objet"])],
+    roleOrder: ["HC", "AS", "PUSHER", "PSS", "MGR"],
+    roles: {
+      HC: ["VCJ", "RES", "PSSH", "E2"],
+      AS: ["VCJ", "RES", "E2"],
+      PUSHER: ["VCJ", "RES"],
+      PSS: ["VCJ", "RES", "PSSH"],
+      MGR: ["VCJ", "RES"],
+    },
+    contact: PARAHOCKEY_CONTACT,
+    regionalContactExceptions: ["Hockey Richelieu"],
+  },
+  {
+    hockey: "Parahockey",
+    entries: [entry("Développement/SLAM", ["Sans objet"])],
+    roleOrder: ["HC", "AS", "PUSHER", "PSS", "EQUIP", "MGR"],
+    roles: {
+      HC: ["VCJ", "RES", "PSSH", "DEVF", "MEC"],
+      AS: ["VCJ", "RES", "E2"],
+      PUSHER: ["VCJ", "RES"],
+      PSS: ["VCJ", "RES", "PSSH"],
+      EQUIP: ["VCJ", "RES"],
+      MGR: ["VCJ", "RES"],
+    },
+    contact: PARAHOCKEY_CONTACT,
+    regionalContactExceptions: ["Hockey Richelieu"],
+  },
+  {
+    hockey: "Parahockey",
+    entries: [entry("Élite", ["Sans objet"])],
+    roleOrder: ["HC", "AS", "PUSHER", "THER", "PSS", "EQUIP", "MGR"],
+    roles: {
+      HC: ["VCJ", "RES", "PSSH", "HPF", "HPC", "MEC"],
+      AS: ["VCJ", "RES", "DEVF", "DEVC"],
+      PUSHER: ["VCJ", "RES"],
+      THER: ["VCJ", "RES"],
+      PSS: ["VCJ", "RES", "PSSH"],
+      EQUIP: ["VCJ", "RES"],
+      MGR: ["VCJ", "RES"],
+    },
+    contact: PARAHOCKEY_CONTACT,
+    regionalContactExceptions: ["Hockey Richelieu"],
   },
 
 ];
