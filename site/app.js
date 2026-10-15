@@ -5,7 +5,7 @@ import {
   ROLE_ORDER,
   ROLES,
 } from "./formations-data.js?v=20261009-1";
-import { REGIONAL_CONTACTS } from "./regions-data.js?v=20261009-1";
+import { REGIONAL_CONTACTS } from "./regions-data.js?v=20261015-1";
 
 const unique = (values) => [...new Set(values)];
 const adminRequirementKeys = new Set(ADMIN_REQUIREMENT_KEYS);
