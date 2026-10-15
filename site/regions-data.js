@@ -37,8 +37,8 @@ const REGIONAL_CONTACTS = [
   },
   {
     region: "Hockey Laval",
-    name: "Martine Deschamps",
-    email: "mdeschamps@hockeylaval.com"
+    name: "Marie-Hélène Masson",
+    email: "mhmasson@hockeylaval.com"
   },
   {
     region: "Hockey Mauricie",
